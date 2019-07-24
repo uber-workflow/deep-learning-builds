@@ -1,0 +1,45 @@
+steps:
+  - label: ":docker: Torch (CPU)"
+    agents:
+      queue: workers
+    command: ./torch/build.sh
+    plugins:
+      - docker-compose:
+          run: torch-cpu
+          config: docker-compose.yml
+
+  - label: ":docker: Torch (CUDA 9.2)"
+    agents:
+      queue: workers
+    command: ./torch/build.sh
+    plugins:
+      - docker-compose:
+          run: torch-cuda-9
+          config: docker-compose.yml
+
+  - label: ":docker: Torch (CUDA 10.0)"
+    agents:
+      queue: workers
+    command: ./torch/build.sh
+    plugins:
+      - docker-compose:
+          run: torch-cuda-10
+          config: docker-compose.yml
+
+  - label: ":docker: TF (CPU)"
+    agents:
+      queue: workers
+    command: ./tf/build.sh
+    plugins:
+      - docker-compose:
+          run: tf-cpu
+          config: docker-compose.yml
+
+  - label: ":docker: TF (GPU)"
+    agents:
+      queue: workers
+    command: ./tf/build.sh
+    plugins:
+      - docker-compose:
+          run: tf-gpu
+          config: docker-compose.yml

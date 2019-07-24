@@ -1,0 +1,46 @@
+version: '2.3'
+services:
+  torch-base:
+    build:
+      context: .
+      dockerfile: torch/torch.dockerfile
+
+  torch-cpu:
+    extends: torch-base
+    build:
+      args:
+        VARIANT_NAME: cpu
+        USE_CUDA: "0"
+
+  torch-cuda-9:
+    extends: torch-base
+    build:
+      args:
+        VARIANT_NAME: cu92
+        USE_CUDA: "1"
+        TARGET_CUDA_VERSION: 9.2
+
+  torch-cuda-10:
+    extends: torch-base
+    build:
+      args:
+        VARIANT_NAME: cu100
+        USE_CUDA: "1"
+        TARGET_CUDA_VERSION: 10.0
+
+  tf-base:
+    build:
+      context: .
+      dockerfile: tf/tf.dockerfile
+
+  tf-cpu:
+    extends: tf-base
+    build:
+      args:
+        BASE_TAG: devel
+
+  tf-gpu:
+    extends: tf-base
+    build:
+      args:
+        BASE_TAG: devel-gpu
